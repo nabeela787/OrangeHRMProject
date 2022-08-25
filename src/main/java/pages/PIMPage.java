@@ -17,6 +17,7 @@ public class PIMPage {
     @FindBy(css = "button[type='submit']") private WebElement submitButton;
     @FindBy(xpath = "//div[@class=\"oxd-table-row oxd-table-row--with-border oxd-table-row--clickable\"]/div[3]/div") private WebElement firstName;
     @FindBy(xpath = "//div[@class=\"oxd-table-row oxd-table-row--with-border oxd-table-row--clickable\"]/div[4]/div") private WebElement lastName;
+    @FindBy(linkText = "Admin") private WebElement adminLink;
 
     public RecruitmentPage navigateToRecruitmentPage() {
         recruitmentLink.click();
@@ -27,7 +28,6 @@ public class PIMPage {
         List<WebElement> elements = driver.findElements(By.cssSelector(".oxd-input.oxd-input--active"));
         elements.get(1).sendKeys(id);
         submitButton.click();
-
         return this;
     }
 
@@ -35,5 +35,10 @@ public class PIMPage {
         Assert.assertEquals(firstName.getText(), firstname);
         Assert.assertEquals(lastName.getText(), lastname);
         return this;
+    }
+
+    public AdminPage navigateToAdminPage() {
+        adminLink.click();
+        return PageFactory.initElements(Browser.driver, AdminPage.class);
     }
 }
